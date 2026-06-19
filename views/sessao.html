@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePro - Selecionar Sessão</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #050505;
+    color: #fff;
+    padding-top: 100px;
+}
+
+.container-sessao {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.filme-info {
+    margin-bottom: 40px;
+}
+
+.filme-titulo {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.sala-badge {
+    background: #e50914;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: background 0.4s ease;
+}
+
+.seletor-horarios {
+    background: #111;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-top: 30px;
+    transition: all 0.4s ease;
+}
+
+.instrucao { 
+    color: rgba(255,255,255,0.6); 
+    margin-bottom: 25px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+.grid-horarios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-horario {
+    background: transparent;
+    border: 2px solid #e50914;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-horario:hover {
+    background: #e50914;
+    color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
+}
+
+.btn-voltar {
+    margin-top: 40px;
+    display: inline-block;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover { 
+    color: #fff; 
+}
+
+.vip-features-box {
+    display: none;
+    background: linear-gradient(135deg, #161208 0%, #0d0a04 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.vip-experience .sala-badge {
+    background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+    color: #000;
+    font-weight: 800;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.vip-experience .vip-features-box {
+    display: block; 
+}
+
+.vip-features-title {
+    color: #d4af37;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.feature-item i {
+    color: #d4af37;
+    font-size: 1.3rem;
+}
+
+.feature-item span {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.vip-experience .seletor-horarios {
+    border-color: rgba(212, 175, 55, 0.1);
+    background: #0d0d0d;
+}
+
+.vip-experience .instrucao {
+    color: #d4af37;
+}
+
+.vip-experience .btn-horario {
+    border-color: #d4af37;
+    color: #fff;
+}
+
+.vip-experience .btn-horario:hover {
+    background: linear-gradient(135deg, #bf953f, #aa771c);
+    color: #000;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    .container-sessao {
+        padding: 15px;
+    }
+
+    .filme-titulo {
+        font-size: 2rem;
+    }
+
+    .sala-badge {
+        padding: 5px 14px;
+        font-size: 12px;
+    }
+
+    .seletor-horarios {
+        padding: 25px 15px;
+        margin-top: 20px;
+    }
+
+    .instrucao {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .grid-horarios {
+        gap: 10px;
+    }
+
+    .btn-horario {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .vip-features-box {
+        padding: 15px;
+    }
+
+    .vip-features-title {
+        font-size: 1rem;
+    }
+
+    .btn-voltar {
+        margin-top: 30px;
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div class="container-sessao" id="pageContainer">
+        
+        <div class="filme-info">
+            <span class="sala-badge" id="exibicaoSala">Carregando...</span>
+            <h1 class="filme-titulo" id="exibicaoTitulo">Filme</h1>
+        </div>
+
+        <div class="vip-features-box" id="vipFeatures">
+            <h4 class="vip-features-title"><i class="fas fa-crown me-2"></i> Experiência VIP CinePro</h4>
+            <div class="row g-3 justify-content-center mt-2">
+                <div class="col-6 col-sm-4">
+                    <div class="feature-item">
+                        <i class="fas fa-couch"></i>
+                        <span>Poltronas Reclináveis</span>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="feature-item">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Atendimento na Sala</span>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <div class="feature-item">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <span>Menu Gourmet</span>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="seletor-horarios">
+            <p class="instrucao">Escolha o horário da sessão</p>
+            <div class="grid-horarios" id="containerHorarios">
+                </div>
+        </div>
+
+        <a href="menu.html" class="btn-voltar"><i class="fas fa-arrow-left me-2"></i> Voltar para a vitrine</a>
+    </div>
+
+    <script src="js/sessaoView.js"></script>
+</body>
+</html>

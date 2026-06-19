@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #050505;
+    color: #fff;
+    padding-top: 90px;
+    overflow-x: hidden;
+    background-attachment: fixed; 
+}
+    
+.header-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.header-scrolled {
+    height: 75px;
+    background: #000;
+}   
+
+.navbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.logo-text {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+.logo-text span {
+    color: #e50914;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    margin: 0;
+    align-items: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 35px 10px;
+    text-transform: uppercase;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 25px;
+    left: 10px;
+    width: 0;
+    height: 3px; 
+    background: #e50914;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 12px #e50914, 0 0 4px #e50914;
+}
+
+.nav-link:hover::after, 
+.nav-link.active::after {
+    width: calc(100% - 20px);
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 85%;
+    left: 0;
+    background: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px;
+    padding: 12px 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.nav-item:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    color: rgba(255,255,255,0.6);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.dropdown-item i {
+    font-size: 10px;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateX(-10px);
+}
+
+.dropdown-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: #e50914;
+    padding-left: 25px;
+}
+
+.dropdown-item:hover i {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-link i {
+    font-size: 9px;
+    margin-left: 5px;
+    transition: 0.3s;
+}
+
+.nav-item:hover .nav-link i {
+    transform: scale(0.8) rotate(180deg);
+    color: #e50914;
+}
+
+.btn-ticket-main {
+    background: #e50914;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-ticket-main:hover {
+    background: #b20710;
+    transform: scale(1.05);
+}
+
+.carousel-section {
+    padding: 20px 0;
+    background-color: transparent !important; 
+}
+
+#heroCarousel {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 21 / 9;
+    min-height: 440px;
+    background-color: #111;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+}
+
+.carousel-inner, 
+.carousel-item {
+    height: 100%;
+}
+    
+.carousel-item {
+    background-size: cover;
+    background-position: center top;
+    position: relative;
+}
+
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.carousel-caption {
+    text-align: left;
+    left: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    padding: 0;
+    z-index: 2;
+}
+
+.carousel-caption h1 {
+    font-size: 64px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    top: auto;
+    bottom: 30px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.carousel-control-prev:hover, 
+.carousel-control-next:hover {
+    opacity: 1;
+    background: #e50914;
+    border-color: #e50914;
+    transform: scale(1.1);
+}
+
+.carousel-control-prev { left: auto; right: 85px; }
+.carousel-control-next { left: auto; right: 30px; }
+
+.section-padding {
+    padding: 60px 40px;
+    background-color: transparent !important;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.movie-card-v2 { 
+    position: relative;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.movie-card-v2:hover {
+    z-index: 10;
+}
+
+.poster-container {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+}
+
+.poster-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0; 
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+    z-index: 2; 
+}
+
+.movie-card-v2:hover .card-overlay {
+    opacity: 1;
+}
+
+.btn-buy-ticket {
+    background: #e50914;
+    color: white;
+    padding: 12px 26px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    display: inline-block;
+    z-index: 3; 
+}
+
+.movie-card-v2:hover .btn-buy-ticket {
+    transform: translateY(0);
+}
+
+.btn-buy-ticket:hover {
+    background: #b20710;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+.movie-info-box {
+    padding: 18px 15px;
+    background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+}
+
+.movie-title {
+    font-size: 18px; 
+    font-weight: 800; 
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    color: #fff;
+}
+
+.movie-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie-genre {
+    font-size: 11px; 
+    color: #e50914; 
+    text-transform: uppercase; 
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.movie-rating {
+    font-size: 12px;
+    color: #ffb800;
+    font-weight: 700;
+    background: rgba(255, 184, 0, 0.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.age-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px; 
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: 900;
+    font-size: 11px;
+    color: #fff;
+    z-index: 5;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.age-badge.age-L  { background-color: #00b551; }
+.age-badge.age-12 { background-color: #df9c00; color: #fff; }
+.age-badge.age-14 { background-color: #cf6200; color: #fff; }
+.age-badge.age-16 { background-color: #d81d24; }
+
+.section-title-header {
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0;
+    border-left: 4px solid #e50914;
+    padding-left: 15px;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.carousel-controls {
+    display: flex;
+}
+
+.btn-nav-arrow {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-nav-arrow:hover {
+    background: #e50914;
+    border-color: #e50914;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+    color: #ffffff;
+}
+
+
+.promo-section-container {
+    padding: 40px;
+    background-color: transparent !important;
+}
+
+.promo-typo-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 1320px; 
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.promo-typo-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.promo-main-info { 
+    position: relative; 
+    z-index: 2; 
+    max-width: 60%; 
+}
+
+.promo-tag-outline {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #e50914;
+    color: #e50914;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.display-text {
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.display-text .highlight {
+    color: #e50914;
+    text-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.description-text {
+    color: #b3b3b3;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.promo-side-visual {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.big-number {
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(to bottom, #fff, #444);
+    -webkit-background-clip: text; 
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.off-text {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 10px;
+    color: #e50914;
+    margin-top: -10px;
+    display: block;
+}
+
+.icon-plus {
+    font-size: 80px;
+    color: #fff;
+    filter: drop-shadow(0 0 15px #e50914);
+}
+
+.vip-style {
+    background: linear-gradient(45deg, #1c1a17, #0a0a0a) !important;
+    border: 1px solid #c19b33 !important;
+}
+
+.gold-tag {
+    color: #c19b33 !important;
+    border-color: #c19b33 !important;
+}
+
+.gold-text {
+    color: #c19b33 !important;
+    text-shadow: 0 0 20px rgba(193, 155, 51, 0.4) !important;
+}
+
+.gold-btn {
+    background-color: #c19b33 !important;
+    color: #000 !important;
+    font-weight: 800;
+    margin-top: 15px;
+}
+
+.gold-btn:hover {
+    background-color: #a38026 !important;
+    box-shadow: 0 0 15px rgba(193, 155, 51, 0.5) !important;
+}
+
+.icon-gold {
+    font-size: 80px;
+    color: #c19b33;
+    margin-bottom: 10px;
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(193, 155, 51, 0.3));
+}
+
+
+.movies-section-bg {
+    background-color: #050505;
+    padding: 60px 0;
+}
+
+.section-title-header {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    border-left: 4px solid #e50914;
+    padding-left: 15px;
+    color: #ffffff;
+}
+
+.age-badge.age-14 {
+    background-color: #ebeb2c;
+    color: #000000;
+}
+
+.age-badge.age-16 {
+    background-color: #e50914;
+    color: #ffffff;
+}
+
+.carousel-controls {
+    display: flex;
+}
+
+.btn-nav-arrow {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-nav-arrow:hover {
+    background: #e50914;
+    border-color: #e50914;
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.5);
+    color: #ffffff;
+}
+
+.btn-login-small {
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 35px; 
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-login-small:hover {
+    background: #b20710;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
+}
+
+.custom-input {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: #e50914;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.2);
+    color: #fff;
+}
+
+.fw-900 { font-weight: 900; }
+
+@media (max-width: 768px) {
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.navbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+    min-height: 20px;
+    padding: 10px;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box;
+}
+
+.logo-text, .navbar-brand {
+    font-size: 18px !important;
+}
+
+.nav-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 5px !important; 
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.nav-link {
+    font-size: 11px !important;
+    padding: 4px 6px !important;
+    white-space: nowrap !important;
+}
+
+
+.btn-ticket-main, .btn-perfil {
+    font-size: 10px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+
+#heroCarousel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    aspect-ratio: 16 / 9; 
+    margin: 0 auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+}
+
+#heroCarousel .carousel-inner,
+#heroCarousel .carousel-item,
+#heroCarousel img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.carousel-caption {
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    bottom: 10px;
+    padding: 0;
+}
+
+.carousel-caption h1 {
+    font-size: 18px !important;
+    margin-bottom: 5px !important;
+}
+
+.btn-action, .btn-tickets-carousel {
+    padding: 6px 12px !important;
+    font-size: 10px !important;
+}
+
+.carousel-control-prev, 
+.carousel-control-next {
+    width: 25px;
+    height: 25px;
+    bottom: 10px;
+}
+.carousel-control-prev { right: 40px; }
+.carousel-control-next { right: 10px; }
+
+.section-padding {
+    padding: 20px 10px;
+}
+
+.movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+}
+
+.promo-section-container{
+padding: 15px;
+}
+
+.promo-typo-card{
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 20px;
+    min-height: auto;
+    gap: 20px;
+}
+
+.promo-main-info{
+    max-width: 100%;
+}
+
+.display-text{
+    font-size: 28px;
+}
+
+.description-text{
+    font-size: 14px;
+}
+
+.big-number{
+    font-size: 60px;
+}
+
+.off-text{
+    font-size: 16px;
+    letter-spacing: 4px;
+}
+
+.icon-plus,
+.icon-gold{
+    font-size: 50px;
+}
+}
+</style>
+</head>
+<body>
+
+
+<header class="header-container" id="mainHeader">
+    <nav class="navbar">
+        <a href="menu.html" class="logo-text">
+            <i class="fas fa-film text-danger me-2"></i>CINE<span>PRO</span>
+        </a>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="menu.html" class="nav-link active">Home</a></li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Filmes <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="em-breve.html" class="dropdown-item">Em Breve <i class="fas fa-chevron-right"></i></a>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin: 8px 0;"></div>
+                    <a href="sessoes-vip.html" class="dropdown-item">Sessões VIP <i class="fas fa-star text-warning"></i></a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="nossos-cinemas.html" class="nav-link">Cinemas <i class="fas fa-chevron-down"></i></a>
+            </li>
+            <li class="nav-item"><a href="precos.html" class="nav-link">Preços</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <a href="perfil.html" style="text-decoration: none;">
+                <button class="btn-ticket-main">PERFIL</button>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<section class="carousel-section">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+        </div>
+        <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url('../imagens/obsession.jpg');">
+                    <div class="carousel-caption">
+                        <h1>OBSESSÃO</h1>
+                        <a href="javascript:void(0)" onclick="verificarAcesso('Obsessao')" class="btn-buy-ticket">Ingressos</a>
+                    </div>
+                </div>
+
+                <div class="carousel-item" style="background-image: url('../imagens/super.jpg');">
+                    <div class="carousel-caption">
+                        <h1>SUPERGIRL</h1>
+                        <a href="javascript:void(0)" onclick="verificarAcesso('Supergirl')" class="btn-buy-ticket">Ingressos</a>
+                    </div>
+                </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 20px;"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true" style="width: 20px;"></span>
+        </button>
+    </div>
+</section>
+
+<section class="section-padding movies-section-bg">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="section-title-header">
+                Filmes Em Cartaz
+            </h2>
+
+            <div class="carousel-controls">
+                <button class="btn-nav-arrow me-2" type="button" data-bs-target="#carouselFilmes" data-bs-slide="prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="btn-nav-arrow" type="button" data-bs-target="#carouselFilmes" data-bs-slide="next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div> 
+
+        <div id="carouselFilmes" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <div class="movie-grid">
+                        
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-16">16</span>
+                                <img src="../imagens/panico.jpg" alt="Panico 7">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Panico 7')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Pânico 7</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Terror / Suspense</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>8.4</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-12">12</span>
+                                <img src="../imagens/devoradores.jpg" alt="Devoradores de Estrela">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Devoradores de Estrelas')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Devoradores de Estrela</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Ficção Científica / Aventura</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>9.1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-16">16</span>
+                                <img src="../imagens/backrooms.jpg" alt="Backrooms">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Backrooms')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Backrooms</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Suspense / Terror</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>7.8</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-12">12</span>
+                                <img src="../imagens/diad.jpg" alt="Dia D">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Dia D')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Dia D</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Ficção Científica / Suspense</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>6.5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="movie-grid">
+                        
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-12">12</span>
+                                <img src="../imagens/circodigital.jpg" alt="Circo Digital">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Circo Digital')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Circo Digital</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Drama / Ficção Científica</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>8.4</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-L">L</span>
+                                <img src="../imagens/toystore.jpg" alt="Toy Store 5">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Toy Store 5')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Toy Store 5</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Animação / Comédia</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>9.1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-12">12</span>
+                                <img src="../imagens/diabo.jpg" alt="Diabo Veste Prada">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Diabo Veste Prada')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Diabo Veste Prada</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Drama / Comédia</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>7.8</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card-v2">
+                            <div class="poster-container">
+                                <span class="age-badge age-12">12</span>
+                                <img src="../imagens/michael.jpg" alt="Michael">
+                                <div class="card-overlay">
+                                    <a href="javascript:void(0)" onclick="verificarAcesso('Michael')" class="btn-buy-ticket">Ingressos</a>
+                                </div>
+                            </div>
+                            <div class="movie-info-box">
+                                <h3 class="movie-title">Michael</h3>
+                                <div class="movie-meta">
+                                    <span class="movie-genre">Biografia / Drama</span>
+                                    <span class="movie-rating"><i class="fas fa-star me-1"></i>6.5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="promo-section-container">
+    <div class="promo-typo-card vip-style">
+        <div class="promo-main-info">
+            <div class="promo-tag-outline gold-tag">Premium</div>
+            <h3 class="display-text">EXPERIÊNCIA <span class="highlight gold-text">VIP</span></h3>
+            <p class="description-text">Poltronas reclináveis, serviço de garçom e um menu exclusivo para quem não aceita menos que o melhor.</p>
+            <a href="sessoes-vip.html" class="btn-ticket-main gold-btn">CONHECER SALAS VIP</a>
+        </div>
+        <div class="promo-side-visual">
+            <i class="fas fa-crown icon-gold"></i>
+            <span class="off-text gold-text">PREMIUM</span>
+        </div>
+    </div>
+</section>
+
+<section class="promo-section-container">
+    <div id="promoCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <div class="promo-typo-card">
+                    <div class="promo-main-info">
+                        <div class="promo-tag-outline">Segunda Irresistível</div>
+                        <h3 class="display-text">TODO MUNDO PAGA <span class="highlight">MEIA</span></h3>
+                        <p class="description-text">Não importa a idade ou documento: às segundas, o cinema é democrático. Válido para 2D, 3D, VIP e IMAX.</p>
+                    </div>
+                    <div class="promo-side-visual">
+                        <span class="big-number">50%</span>
+                        <span class="off-text">OFF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="promo-typo-card">
+                    <div class="promo-main-info">
+                        <div class="promo-tag-outline">Upgrade Gourmet</div>
+                        <h3 class="display-text">DOBRO DE <span class="highlight">PIPOCA</span></h3>
+                        <p class="description-text">Compre a pipoca média e nós fazemos o upgrade automático para a Gigante por nossa conta.</p>
+                    </div>
+                    <div class="promo-side-visual">
+                        <i class="fas fa-popcorn icon-plus"></i> <span class="off-text">SIZE UP</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="carousel-indicators custom-bars">
+            <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#promoCarousel" data-bs-slide-to="1"></button>
+        </div>
+    </div>
+</section>
+
+<section id="contato" class="contact-section" style="padding: 60px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-4">
+                <h2 class="fw-bold text-uppercase" style="border-left: 4px solid #e50914; display: inline-block; padding-left: 15px; font-size: 1.5rem;">Fale Conosco</h2>
+                <p class="text-muted small mt-2">Dúvidas ou sugestões? Escreva abaixo.</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form id="meuFormulario" class="text-center">
+                    <div class="mb-3">
+                        <textarea name="mensagem" class="form-control custom-input" rows="3" placeholder="Sua mensagem ou dúvida..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control custom-input" placeholder="Seu e-mail para resposta" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-login-small">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="js/menuView.js"></script>
+    <script src="js/contatoView.js"></script>
+    
+</body>
+</html>
