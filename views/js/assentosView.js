@@ -1,6 +1,6 @@
 var precoPorAssento = 36.00; 
 var filmeAtual = "";
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://seu-cinema.onrender.com';
 
 window.onload = async function() {
     var parametros = new URLSearchParams(window.location.search);
@@ -77,10 +77,11 @@ async function carregarEMapearAssentos() {
         if (response.ok) {
             var dadosBrutos = await response.json(); 
             
-            assentosOcupados = dadosBrutos.join(',').split(',').map(function(a) {
-                return a.trim();
+            assentosOcupados = dadosBrutos.map(function(assentoString) {
+                return String(assentoString).trim();
             });
             
+            console.log("Assentos ocupados identificados:", assentosOcupados); 
         }
     } catch (error) {
         console.error("Erro ao buscar assentos do banco:", error);

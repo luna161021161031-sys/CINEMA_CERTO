@@ -9,9 +9,13 @@ const IngressoController = {
             if (!user) {
                 return res.status(404).json({ error: "Usuário não encontrado" });
             }
-            
-            for (let umAssento of listaAssentos) {
-                await IngressoModel.salvarIngresso(user.id, filme, umAssento);
+
+            const listaDeAssentosReal = typeof assentos === 'string' ? assentos.split(',') : assentos;
+
+            for (let umAssento of listaDeAssentosReal) {
+                if (umAssento.trim() !== '') { 
+                    await IngressoModel.salvarIngresso(user.id, filme, umAssento.trim());
+                }
             }
 
             res.status(200).json({ message: "Ingressos salvos com sucesso!" });
