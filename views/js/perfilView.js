@@ -1,4 +1,3 @@
-
 const baseUrl = 'https://mvc-3rqy.onrender.com';
 
 window.onload = function() {
@@ -15,6 +14,20 @@ async function carregarPerfil() {
     }
 
     document.getElementById('nomeUsuario').innerText = usuario
+
+    try {
+        const responseAdmin = await fetch(`${baseUrl}/verificar-admin?usuario=${encodeURIComponent(usuario)}`);
+        if (responseAdmin.ok) {
+            const dadosUsuario = await responseAdmin.json();
+
+            if (dadosUsuario.isAdmin === true || dadosUsuario.role === 'admin') {
+                document.getElementById('btnAdmin').classList.remove('d-none');
+            }
+        }
+    } catch (err) {
+        console.error("Erro ao verificar permissões de admin:", err);
+    }
+
 
     try {
         const response = await fetch(`${baseUrl}/meus-ingressos?usuario=${encodeURIComponent(usuario)}`)
@@ -55,5 +68,6 @@ async function carregarPerfil() {
 function fazerLogout() {
     localStorage.removeItem('usuarioLogado')
     localStorage.removeItem('nomeUsuario')
+    localStorage.removeItem('isAdmin') 
     window.location.href = 'menu.html'
 }
