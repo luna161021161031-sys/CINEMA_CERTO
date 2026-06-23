@@ -10,7 +10,6 @@ const IngressoController = {
                 return res.status(404).json({ error: "Usuário não encontrado" });
             }
             
-            z
             for (let umAssento of listaAssentos) {
                 await IngressoModel.salvarIngresso(user.id, filme, umAssento);
             }
