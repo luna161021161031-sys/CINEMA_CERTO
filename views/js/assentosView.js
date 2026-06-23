@@ -1,6 +1,6 @@
 var precoPorAssento = 36.00; 
 var filmeAtual = "";
-const baseUrl = 'https://seu-cinema.onrender.com';
+const baseUrl = 'https://cinema-certo.onrender.com';
 
 window.onload = async function() {
     var parametros = new URLSearchParams(window.location.search);

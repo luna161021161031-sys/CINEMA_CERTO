@@ -1,4 +1,4 @@
-const baseUrl = 'https://seu-cinema.onrender.com';
+const baseUrl = 'https://cinema-certo.onrender.com';
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const filme = urlParams.get('filme');
