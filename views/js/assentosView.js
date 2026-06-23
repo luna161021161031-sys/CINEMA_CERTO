@@ -1,6 +1,6 @@
 var precoPorAssento = 36.00; 
 var filmeAtual = "";
-const baseUrl = 'https://mvc-3rqy.onrender.com';
+const baseUrl = 'http://localhost:3000';
 
 window.onload = async function() {
     var parametros = new URLSearchParams(window.location.search);

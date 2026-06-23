@@ -1,4 +1,4 @@
-const baseUrl = 'https://mvc-3rqy.onrender.com';
+const baseUrl = 'http://localhost:3000';
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const filme = urlParams.get('filme');
