@@ -9,48 +9,48 @@ var programacao = {
     "Toy Store 5": { sala: "SALA 08", horarios: ["16:45"] },
     "Diabo Veste Prada": { sala: "SALA 09", horarios: ["23:30"] },
     "Michael": { sala: "SALA 10", horarios: ["21:30"] }
-};
+}
 
 window.onload = function() {
-    var parametros = new URLSearchParams(window.location.search);
-    var filmeNome = parametros.get('filme');
+    var parametros = new URLSearchParams(window.location.search)
+    var filmeNome = parametros.get('filme')
 
-    var titulo = document.getElementById('exibicaoTitulo');
-    var salaElemento = document.getElementById('exibicaoSala');
-    var divBotoes = document.getElementById('containerHorarios');
-    var pageContainer = document.getElementById('pageContainer');
+    var titulo = document.getElementById('exibicaoTitulo')
+    var salaElemento = document.getElementById('exibicaoSala')
+    var divBotoes = document.getElementById('containerHorarios')
+    var pageContainer = document.getElementById('pageContainer')
 
-    var dadosDoFilme = programacao[filmeNome];
+    var dadosDoFilme = programacao[filmeNome]
 
     if (dadosDoFilme) {
-        titulo.innerText = filmeNome;
-        salaElemento.innerText = dadosDoFilme.sala;
-        divBotoes.innerHTML = "";
+        titulo.innerText = filmeNome
+        salaElemento.innerText = dadosDoFilme.sala
+        divBotoes.innerHTML = ""
 
-        var nomeDaSala = dadosDoFilme.sala;
+        var nomeDaSala = dadosDoFilme.sala
         if (nomeDaSala && nomeDaSala.toUpperCase().includes('VIP')) {
-            pageContainer.classList.add('vip-experience');
-            console.log("Experiência VIP ativada para: " + filmeNome);
+            pageContainer.classList.add('vip-experience')
+            console.log("Experiência VIP ativada para: " + filmeNome)
         } else {
-            pageContainer.classList.remove('vip-experience');
+            pageContainer.classList.remove('vip-experience')
         }
         for (var i = 0; i < dadosDoFilme.horarios.length; i++) {
-            var hora = dadosDoFilme.horarios[i];
+            var hora = dadosDoFilme.horarios[i]
 
-            var botao = document.createElement('a');
-            botao.className = "btn-horario";
+            var botao = document.createElement('a')
+            botao.className = "btn-horario"
 
             botao.href = "assentos.html?filme=" + encodeURIComponent(filmeNome) + 
                          "&hora=" + hora + 
-                         "&sala=" + encodeURIComponent(dadosDoFilme.sala);
-            botao.innerText = hora;
+                         "&sala=" + encodeURIComponent(dadosDoFilme.sala)
+            botao.innerText = hora
 
-            divBotoes.appendChild(botao);
+            divBotoes.appendChild(botao)
         }
     } else {
-        titulo.innerText = "Filme não encontrado";
-        salaElemento.innerText = "-";
-        divBotoes.innerHTML = "<p class='text-danger'>Selecione um filme válido no menu anterior.</p>";
-        pageContainer.classList.remove('vip-experience');
+        titulo.innerText = "Filme não encontrado"
+        salaElemento.innerText = "-"
+        divBotoes.innerHTML = "<p class='text-danger'>Selecione um filme válido no menu anterior.</p>"
+        pageContainer.classList.remove('vip-experience')
     }
-};
+}

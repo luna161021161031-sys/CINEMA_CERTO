@@ -175,10 +175,10 @@ input::placeholder {
     </main>
 
 <script>
-    const baseUrl = 'https://cinema-certo.onrender.com';
+    const baseUrl = 'https://cinema-certo.onrender.com'
 
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
-        e.preventDefault(); 
+        e.preventDefault()
 
         const usuario = document.getElementById('usuario').value;
         const senha = document.getElementById('senha').value;
@@ -188,35 +188,35 @@ input::placeholder {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario, senha })
-            });
+            })
 
             if (response.ok) {
-                const dados = await response.json();
+                const dados = await response.json()
 
-                localStorage.setItem('usuarioLogado', 'true');
-                localStorage.setItem('nomeUsuario', dados.usuario);
-                localStorage.setItem('tipo_usuario', dados.tipo_usuario);
+                localStorage.setItem('usuarioLogado', 'true')
+                localStorage.setItem('nomeUsuario', dados.usuario)
+                localStorage.setItem('tipo_usuario', dados.tipo_usuario)
 
-                const urlPretendida = localStorage.getItem('urlPretendida');
+                const urlPretendida = localStorage.getItem('urlPretendida')
 
                 if (dados.tipo_usuario === 'admin') {
-                    window.location.href = "menu.html";
+                    window.location.href = "menu.html"
                 } else if (urlPretendida) {
-                    localStorage.removeItem('urlPretendida');
+                    localStorage.removeItem('urlPretendida')
 
-                    const urlLimpa = urlPretendida.replace('views/', '').replace(/^\//, '');
+                    const urlLimpa = urlPretendida.replace('views/', '').replace(/^\//, '')
                     window.location.href = urlLimpa;
                 } else {
-                    window.location.href = "menu.html";
+                    window.location.href = "menu.html"
                 }
             } else {
-                alert('Utilizador ou senha incorretos.');
+                alert('Utilizador ou senha incorretos.')
             }
         } catch (err) {
-            console.error("Erro ao logar:", err);
-            alert("Erro ao conectar com o servidor.");
+            console.error("Erro ao logar:", err)
+            alert("Erro ao conectar com o servidor.")
         }
-    });
+    })
 </script>
 </body>
 </html>

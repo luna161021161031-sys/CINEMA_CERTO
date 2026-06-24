@@ -1,35 +1,35 @@
-const baseUrl = 'https://cinema-certo.onrender.com';
+const baseUrl = 'https://cinema-certo.onrender.com'
 
 window.onload = function() {
-    carregarPerfil();
+    carregarPerfil()
 
-    const tipoUsuario = localStorage.getItem('tipo_usuario');
+    const tipoUsuario = localStorage.getItem('tipo_usuario')
 
     if (tipoUsuario === 'admin') {
-        const btn = document.getElementById('btnVerLogins');
+        const btn = document.getElementById('btnVerLogins')
         if (btn) {
-            btn.classList.remove('d-none');
+            btn.classList.remove('d-none')
         }
     }
 }
 
 async function carregarPerfil() {
-    const usuario = localStorage.getItem('nomeUsuario');
-    const logado = localStorage.getItem('usuarioLogado');
+    const usuario = localStorage.getItem('nomeUsuario')
+    const logado = localStorage.getItem('usuarioLogado')
 
     if (logado !== 'true' || !usuario) {
-        window.location.href = 'login.html';
-        return;
+        window.location.href = 'login.html'
+        return
     }
 
-    document.getElementById('nomeUsuario').innerText = usuario;
+    document.getElementById('nomeUsuario').innerText = usuario
 
     try {
-        const response = await fetch(`${baseUrl}/meus-ingressos?usuario=${encodeURIComponent(usuario)}`);
-        const ingressos = await response.json();
+        const response = await fetch(`${baseUrl}/meus-ingressos?usuario=${encodeURIComponent(usuario)}`)
+        const ingressos = await response.json()
         
-        const corpo = document.getElementById('tabelaCorpo');
-        corpo.innerHTML = "";
+        const corpo = document.getElementById('tabelaCorpo')
+        corpo.innerHTML = ""
 
         if (ingressos.length === 0) {
             corpo.innerHTML = `
@@ -38,14 +38,14 @@ async function carregarPerfil() {
                         <i class="fas fa-search fa-2x mb-3 d-block"></i>
                         Nenhum ingresso encontrado para sua conta.
                     </td>
-                </tr>`;
-            return;
+                </tr>`
+            return
         }
 
         ingressos.forEach(ing => {
             const dataObj = new Date(ing.data_compra);
             const dataFormatada = dataObj.toLocaleDateString('pt-BR');
-            const horaFormatada = dataObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const horaFormatada = dataObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
             
             corpo.innerHTML += `
                 <tr>
@@ -53,23 +53,23 @@ async function carregarPerfil() {
                     <td><span class="badge-seat">${ing.assento}</span></td>
                     <td class="text-muted">${dataFormatada} às ${horaFormatada}</td>
                 </tr>
-            `;
-        });
+            `
+        })
     } catch (error) {
-        console.error("Erro ao carregar dados do perfil:", error);
+        console.error("Erro ao carregar dados do perfil:", error)
     }
 }
 
 async function verLogins() {
-    const area = document.getElementById('areaAdmin');
-    if (!area) return;
+    const area = document.getElementById('areaAdmin')
+    if (!area) return
 
-    area.classList.toggle('d-none');
-    if (area.classList.contains('d-none')) return;
+    area.classList.toggle('d-none')
+    if (area.classList.contains('d-none')) return
 
     try {
-        const res = await fetch(`${baseUrl}/listar-usuarios?solicitante=admin`);
-        const usuarios = await res.json();
+        const res = await fetch(`${baseUrl}/listar-usuarios?solicitante=admin`)
+        const usuarios = await res.json()
         
         document.getElementById('tabelaUsuariosCorpo').innerHTML = usuarios.map(u => `
             <tr>
@@ -78,25 +78,24 @@ async function verLogins() {
                 <td><span class="badge ${u.tipo_usuario === 'admin' ? 'bg-danger' : 'bg-secondary'}">${u.tipo_usuario}</span></td>
                 <td>${u.usuario === localStorage.getItem('nomeUsuario') ? 'Você' : `<button class="btn btn-sm btn-danger" onclick="remover(${u.id})">Remover</button>`}</td>
             </tr>
-        `).join('');
+        `).join('')
     } catch (err) { 
-        console.error("Erro ao carregar logins:", err); 
+        console.error("Erro ao carregar logins:", err);
     }
 }
 
 async function remover(id) {
-    if (!confirm("Remover este utilizador permanentemente?")) return;
     try {
-        const res = await fetch(`${baseUrl}/deletar-usuario/${id}?solicitante=admin`, { method: 'DELETE' });
+        const res = await fetch(`${baseUrl}/deletar-usuario/${id}?solicitante=admin`, { method: 'DELETE' })
         if (res.ok) {
-            verLogins(); 
+            verLogins()
         }
     } catch (err) { 
-        console.error("Erro ao remover usuário:", err); 
+        console.error("Erro ao remover usuário:", err);
     }
 }
 
 function fazerLogout() {
-    localStorage.clear();
-    window.location.href = 'menu.html';
+    localStorage.clear()
+    window.location.href = 'menu.html'
 }

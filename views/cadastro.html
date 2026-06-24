@@ -165,10 +165,10 @@ input::placeholder {
     </main>
 
 <script>
-    const baseUrl = 'https://cinema-certo.onrender.com';
+    const baseUrl = 'https://cinema-certo.onrender.com'
 
     document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); 
+    e.preventDefault()
 
     const usuario = document.getElementById('usuario').value;
     const senha = document.getElementById('senha').value;
@@ -181,14 +181,14 @@ input::placeholder {
         });
 
         if (response.ok) {
-            window.location.href = "login.html"; 
+            window.location.href = "login.html"
         } else {
-            const erroData = await response.json();
-            alert('Erro ao cadastrar: ' + (erroData.message || 'Tente outro utilizador.'));
+            const erroData = await response.json()
+            alert('Erro ao cadastrar: ' + (erroData.message || 'Tente outro utilizador.'))
         }
     } catch (err) {
-        console.error("Erro na requisição:", err);
-        alert("Erro ao conectar com o servidor.");
+        console.error("Erro na requisição:", err)
+        alert("Erro ao conectar com o servidor.")
     }
-});
+})
 </script>
