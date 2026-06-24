@@ -175,7 +175,7 @@ input::placeholder {
     </main>
 
 <script>
-const baseUrl = 'https://cinema-certo.onrender.com';
+    const baseUrl = 'https://cinema-certo.onrender.com';
 
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault(); 
@@ -195,12 +195,12 @@ const baseUrl = 'https://cinema-certo.onrender.com';
 
                 localStorage.setItem('usuarioLogado', 'true');
                 localStorage.setItem('nomeUsuario', dados.usuario);
-                localStorage.setItem('tipoUsuario', dados.tipo_usuario);
+                localStorage.setItem('tipo_usuario', dados.tipo_usuario);
 
                 const urlPretendida = localStorage.getItem('urlPretendida');
 
                 if (dados.tipo_usuario === 'admin') {
-                    window.location.href = "admin.html";
+                    window.location.href = "menu.html";
                 } else if (urlPretendida) {
                     localStorage.removeItem('urlPretendida');
 

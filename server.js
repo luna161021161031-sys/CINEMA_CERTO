@@ -1,8 +1,4 @@
-require('dotenv').config();
-console.log("=== DIAGNÓSTICO DO BANCO ===");
-console.log("HOST LIDO:", process.env.DB_HOST);
-console.log("PORTA LIDA:", process.env.DB_PORT);
-console.log("============================");
+
 
 const express = require('express');
 const cors = require('cors'); 
