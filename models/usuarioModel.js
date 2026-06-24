@@ -30,6 +30,14 @@ const UsuarioModel = {
             'SELECT id, usuario, tipo_usuario FROM Usuarios ORDER BY id DESC'
         );
         return rows;
+    },
+
+    async deletar(id) {
+        const [result] = await conexao.query(
+            'DELETE FROM Usuarios WHERE id = ?', 
+            [id]
+        );
+        return result;
     }
 };
 

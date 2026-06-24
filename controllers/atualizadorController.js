@@ -58,20 +58,20 @@ const AuthController = {
         }
     },
 
-    async deletarUsuario(req, res) {
+async deletarUsuario(req, res) {
         const { id } = req.params; 
-        const solicitante = req.query.solicitante;
+        const solicitante = req.query.solicitante; 
 
         if (solicitante !== 'admin') {
-            return res.status(403).json({ error: "Acesso negado." });
+            return res.status(403).json({ error: "Acesso negado." }); 
         }
-
         try {
-            await conexao.query('DELETE FROM Usuarios WHERE id = ?', [id]);
-            return res.status(200).json({ success: true, message: "Utilizador removido!" });
+            await UsuarioModel.deletar(id);
+            
+            return res.status(200).json({ success: true, message: "Utilizador removido!" }); 
         } catch (err) {
             console.error(err);
-            return res.status(500).json({ error: "Erro ao remover utilizador." });
+            return res.status(500).json({ error: "Erro ao remover utilizador." }); 
         }
     }
 };
