@@ -1,4 +1,4 @@
-const conexao = require('../config/database');
+const conexao = require('../config/database'); 
 
 const UsuarioModel = {
     async cadastrar(usuario, senha) {
@@ -23,7 +23,14 @@ const UsuarioModel = {
             [usuario]
         );
         return rows[0]; 
+    },
+
+    async listarTodosOsLogins() {
+        const [rows] = await conexao.query(
+            'SELECT id, usuario, tipo_usuario FROM Usuarios ORDER BY id DESC'
+        );
+        return rows;
     }
 };
 
-module.exports = UsuarioModel;
+module.exports = UsuarioModel; 

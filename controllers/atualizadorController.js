@@ -46,15 +46,15 @@ const AuthController = {
         const solicitante = req.query.solicitante; 
 
         if (solicitante !== 'admin') {
-            return res.status(403).json({ error: "Acesso negado. Permissão insuficiente." });
+            return res.status(403).json({ error: "Acesso negado. Permissão insuficiente." }); 
         }
 
         try {
             const lista = await UsuarioModel.listarTodosOsLogins();
-            res.json(lista);
+            res.json(lista); 
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: "Erro ao buscar utilizadores." });
+            res.status(500).json({ error: "Erro ao buscar utilizadores." }); 
         }
     },
 
